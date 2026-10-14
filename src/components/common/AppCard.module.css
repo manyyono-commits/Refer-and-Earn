@@ -62,12 +62,12 @@
 }
 
 .bonus {
-  color: var(--success-dark);
+  color: var(--secondary-color);
   font-weight: 600;
 }
 
 .withdraw {
-  color: var(--text-muted);
+  color: var(--success-dark);
 }
 
 @media (max-width: 480px) {
