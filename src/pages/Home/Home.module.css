@@ -1,0 +1,164 @@
+.hero {
+  margin-top: 5px;
+  text-align: center;
+}
+
+.mainTitle {
+  font-size: 1.8rem;
+  font-weight: 950;
+  line-height: 1.25;
+  background: black;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 12px;
+}
+
+.heroText {
+  color: white;
+  font-size: 0.5rem;
+  font-weight: 950;
+  padding: 12px 12px;
+  border-radius: var(--radius-lg);
+  /* background: var(--bg-card); */
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+  background-image: linear-gradient(to right, rgb(50, 50, 50), #00bdc1a1);
+}
+
+.gamesTitle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 28px 0 14px;
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+.gamesTitle svg {
+  color: var(--primary-color);
+}
+
+.gamesList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.count {
+  margin-top: 12px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-soft);
+}
+
+.score {
+  display: inline-block;
+  padding: 4px 12px;
+  margin-bottom: 10px;
+  border-radius: 999px;
+  background: var(--success-color);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.featuredList {
+  display: grid;
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.featuredItem {
+  padding: 14px 16px;
+  border-radius: var(--radius-md);
+  background: var(--bg-muted);
+  border: 1px solid var(--border);
+}
+
+.featuredItem h3 {
+  font-size: 1.05rem;
+  margin-bottom: 4px;
+}
+
+.featuredItem h3 a {
+  color: var(--brand-indigo);
+}
+
+.featuredItem h3 a:hover {
+  text-decoration: underline;
+}
+
+.bullets {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.bullets li {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.bullets svg {
+  flex-shrink: 0;
+  margin-top: 4px;
+  color: var(--success-color);
+}
+
+.telegramBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  padding: 10px 18px;
+  border-radius: var(--radius-sm);
+  background: #229ed9;
+  color: #fff;
+  font-weight: 600;
+}
+
+.states {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.stateBadge {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #fee2e2;
+  color: var(--danger-color);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.promo {
+  margin: 20px 0;
+  padding: 20px;
+  border-radius: var(--radius-lg);
+  background: var(--header-gradient);
+  color: #fff;
+  text-align: center;
+  font-weight: 600;
+  box-shadow: var(--shadow-md);
+}
+
+.subTitle {
+  margin: 18px 0 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+@media (max-width: 480px) {
+  .mainTitle {
+    font-size: 1.45rem;
+  }
+
+  .hero {
+    padding: 22px 18px;
+  }
+}

@@ -1,0 +1,30 @@
+.wrap {
+  padding: 80px 16px;
+  text-align: center;
+}
+
+.code {
+  font-size: 5rem;
+  font-weight: 700;
+  line-height: 1;
+  background: var(--header-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.text {
+  margin: 12px 0 24px;
+  color: var(--text-muted);
+}
+
+.home {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 22px;
+  border-radius: var(--radius-sm);
+  background: var(--accent-color);
+  color: #fff;
+  font-weight: 600;
+}

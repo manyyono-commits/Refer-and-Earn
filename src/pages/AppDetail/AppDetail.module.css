@@ -1,0 +1,219 @@
+.hero {
+  margin-top: 24px;
+  padding: 32px 24px;
+  border-radius: var(--radius-lg);
+  background: var(--bg-card);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.heroInfo {
+  flex: 1;
+}
+
+.appName {
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 10px 0 14px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--bg-muted);
+  border: 1px solid var(--border);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-body);
+}
+
+.chipBonus {
+  background: #ecfdf5;
+  border-color: #a7f3d0;
+  color: var(--success-dark);
+}
+
+.chipRating {
+  color: #b45309;
+}
+
+.description {
+  color: var(--text-muted);
+  margin-bottom: 18px;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin: 20px 0;
+}
+
+.statCard {
+  padding: 18px 12px;
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+}
+
+.statValue {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.statLabel {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+}
+
+.infoCard {
+  position: relative;
+  padding: 18px;
+  border-radius: var(--radius-md);
+  background: var(--bg-muted);
+  border: 1px solid var(--border);
+}
+
+.infoCard h3 {
+  font-size: 1rem;
+  margin-bottom: 6px;
+  color: var(--text-main);
+}
+
+.infoCard p {
+  font-size: 0.88rem;
+}
+
+.stepNumber {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  margin-bottom: 10px;
+  border-radius: 50%;
+  background: var(--header-gradient);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.reviewGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+}
+
+.reviewCard {
+  padding: 18px;
+  border-radius: var(--radius-md);
+  background: var(--bg-muted);
+  border: 1px solid var(--border);
+}
+
+.reviewHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.reviewName {
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.stars {
+  display: inline-flex;
+  gap: 2px;
+  color: #f59e0b;
+  font-size: 0.85rem;
+}
+
+.starEmpty {
+  color: #d1d5db;
+}
+
+.faqItem {
+  border-bottom: 1px solid var(--border);
+}
+
+.faqItem:last-child {
+  border-bottom: none;
+}
+
+.faqItem summary {
+  padding: 14px 0;
+  font-weight: 600;
+  color: var(--text-main);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.faqItem summary::-webkit-details-marker {
+  display: none;
+}
+
+.faqItem summary::after {
+  content: '+';
+  font-size: 1.3rem;
+  color: var(--primary-color);
+}
+
+.faqItem[open] summary::after {
+  content: '−';
+}
+
+.faqItem p {
+  padding-bottom: 14px;
+}
+
+.moreGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 14px;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+    padding: 24px 18px;
+  }
+
+  .meta {
+    justify-content: center;
+  }
+
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .appName {
+    font-size: 1.5rem;
+  }
+}

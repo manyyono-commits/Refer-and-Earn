@@ -1,0 +1,261 @@
+/* Shared styles for the About, Contact and Disclaimer pages. */
+
+.page {
+  padding-top: 24px;
+  padding-bottom: 8px;
+}
+
+.pageTitle {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+  margin-bottom: 20px;
+  color: var(--text-body);
+}
+
+.card p {
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.card p + p {
+  margin-top: 12px;
+}
+
+.fadeIn {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------- About ---------- */
+.highlightBox {
+  margin: 24px 0;
+  padding: 20px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--accent-color), var(--success-color));
+  color: #fff;
+  text-align: center;
+}
+
+.highlightBox h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.highlightBox p {
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.featuresGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.featureItem {
+  padding: 16px;
+  border-radius: 8px;
+  background: #fff;
+  border: 1px solid var(--border);
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.featureItem:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.featureIcon {
+  font-size: 24px;
+  color: var(--primary-color);
+  margin-bottom: 8px;
+}
+
+.featureItem h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 4px;
+}
+
+.card .featureItem p {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+/* ---------- Contact ---------- */
+.supportNotice {
+  margin-bottom: 24px;
+  padding: 16px;
+  border-left: 4px solid var(--warning-color);
+  border-radius: 8px;
+  background: #fef3c7;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text-body);
+  text-align: justify;
+}
+
+.businessTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 16px;
+}
+
+.contactTable {
+  width: 100%;
+  margin: 24px 0 0;
+  border-collapse: collapse;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: var(--shadow-sm);
+}
+
+.contactTable th {
+  padding: 16px;
+  background: var(--primary-color);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.contactTable td {
+  padding: 16px;
+  border-bottom: 1px solid var(--border);
+  font-size: 15px;
+  text-align: left;
+}
+
+.contactTable tr:last-child td {
+  border-bottom: none;
+}
+
+.contactTable tbody tr:nth-child(even) {
+  background: var(--bg-muted);
+}
+
+.contactTable td:first-child {
+  font-weight: 600;
+  color: var(--text-main);
+  width: 40%;
+}
+
+/* ---------- Disclaimer ---------- */
+.welcomeSection {
+  margin-bottom: 24px;
+  padding: 16px;
+  border-left: 4px solid var(--primary-color);
+  border-radius: 8px;
+  background: #f0f9ff;
+}
+
+.welcomeTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-bottom: 8px;
+}
+
+.disclaimerSection {
+  margin-bottom: 32px;
+}
+
+.disclaimerSection:last-child {
+  margin-bottom: 0;
+}
+
+.sectionTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--accent-color);
+}
+
+.subsection {
+  margin: 0 0 16px 20px;
+}
+
+.subsectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.subsectionTitle::before {
+  content: '•';
+  color: var(--secondary-color);
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.card .subsectionContent,
+.card .sectionText {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #4b5563;
+  text-align: justify;
+}
+
+@media (max-width: 768px) {
+  .pageTitle {
+    font-size: 22px;
+  }
+
+  .card {
+    padding: 20px;
+  }
+
+  .featuresGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .contactTable th,
+  .contactTable td {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .subsection {
+    margin-left: 16px;
+  }
+
+  .sectionTitle {
+    font-size: 16px;
+  }
+
+  .subsectionTitle {
+    font-size: 15px;
+  }
+}

@@ -1,0 +1,82 @@
+.card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.number {
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--primary-color);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  box-shadow: var(--shadow-sm);
+}
+
+.info {
+  flex: 1;
+  min-width: 0;
+}
+
+.name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 4px;
+  font-size: 0.8rem;
+}
+
+.bonus svg,
+.withdraw svg {
+  margin-right: 6px;
+  vertical-align: -1px;
+}
+
+.bonus {
+  color: var(--success-dark);
+  font-weight: 600;
+}
+
+.withdraw {
+  color: var(--text-muted);
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 14px;
+    gap: 14px;
+  }
+
+  .details {
+    font-size: 0.72rem;
+  }
+}
