@@ -17,7 +17,7 @@ export default function Header() {
     <div className={styles.headerWrap}>
       <header className={styles.header}>
         <Link to="/" className={styles.brand} aria-label="Go to home page">
-          <img src="/images/logo.svg" alt="" className={styles.logo} width="40" height="40" />
+          <img src="/images/logo.jpeg" alt="" className={styles.logo} width="40" height="40" />
           <span className={styles.siteTitle}>{site?.siteName ?? 'All New Apps'}</span>
         </Link>
       </header>
