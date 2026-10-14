@@ -35,12 +35,12 @@
 }
 
 .bonus {
-  color: var(--success-dark);
+  color: var(--header-gradient);
   font-weight: 600;
 }
 
 .withdraw {
-  color: var(--text-muted);
+  color: var(--success-dark);
 }
 
 .button {
