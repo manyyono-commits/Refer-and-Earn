@@ -1,55 +1,37 @@
-import { useEffect } from 'react';
-import { Link, NavLink, useLocation } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { FaBars, FaTimes, FaTelegramPlane } from 'react-icons/fa';
-import { closeMobileMenu, selectMobileMenuOpen, toggleMobileMenu } from '../../features/ui/uiSlice';
+import { Link, NavLink } from 'react-router-dom';
+import { FaHome, FaInfoCircle, FaEnvelope, FaExclamationTriangle, FaTelegramPlane } from 'react-icons/fa';
 import { useGetSiteContentQuery } from '../../services/api';
 import styles from './Header.module.css';
 
 const NAV_LINKS = [
-  { to: '/', label: 'Home', end: true },
-  { to: '/about', label: 'About' },
-  { to: '/contact', label: 'Contact' },
-  { to: '/disclaimer', label: 'Disclaimer' },
+  { to: '/', label: 'Home', end: true, icon: FaHome },
+  { to: '/about', label: 'About', icon: FaInfoCircle },
+  { to: '/contact', label: 'Contact', icon: FaEnvelope },
+  { to: '/disclaimer', label: 'Disclaimer', icon: FaExclamationTriangle },
 ];
 
 export default function Header() {
-  const dispatch = useDispatch();
-  const menuOpen = useSelector(selectMobileMenuOpen);
-  const { pathname } = useLocation();
   const { data: site } = useGetSiteContentQuery();
 
-  useEffect(() => {
-    dispatch(closeMobileMenu());
-  }, [pathname, dispatch]);
-
   return (
-    <header className={styles.header}>
-      <Link to="/" className={styles.brand} aria-label="Go to home page">
-        <img src="/images/logo.jpeg" alt="" className={styles.logo} width="40" height="40" />
-        <span className={styles.siteTitle}>{site?.siteName ?? 'All New Apps'}</span>
-      </Link>
+    <div className={styles.headerWrap}>
+      <header className={styles.header}>
+        <Link to="/" className={styles.brand} aria-label="Go to home page">
+          <img src="/images/logo.svg" alt="" className={styles.logo} width="40" height="40" />
+          <span className={styles.siteTitle}>{site?.siteName ?? 'All New Apps'}</span>
+        </Link>
+      </header>
 
-      <button
-        type="button"
-        className={styles.menuToggle}
-        aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-        aria-expanded={menuOpen}
-        aria-controls="primary-nav"
-        onClick={() => dispatch(toggleMobileMenu())}
-      >
-        {menuOpen ? <FaTimes /> : <FaBars />}
-      </button>
-
-      <nav id="primary-nav" className={`${styles.nav} ${menuOpen ? styles.open : ''}`}>
+      <nav id="primary-nav" className={styles.nav}>
         <ul className={styles.navMenu}>
-          {NAV_LINKS.map(({ to, label, end }) => (
+          {NAV_LINKS.map(({ to, label, end, icon: Icon }) => (
             <li key={to}>
               <NavLink
                 to={to}
                 end={end}
                 className={({ isActive }) => `${styles.navItem} ${isActive ? styles.active : ''}`}
               >
+                <Icon className={styles.navIcon} />
                 {label}
               </NavLink>
             </li>
@@ -62,12 +44,14 @@ export default function Header() {
                 rel="noopener noreferrer"
                 className={`${styles.navItem} ${styles.telegram}`}
               >
-                <FaTelegramPlane /> TG Join
+                <FaTelegramPlane className={styles.navIcon} />
+                TG Join
               </a>
             </li>
           )}
         </ul>
       </nav>
-    </header>
+    </div>
   );
 }
+
