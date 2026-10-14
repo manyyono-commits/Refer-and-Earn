@@ -30,6 +30,11 @@ if (!adminPassword) {
   console.warn('[config] ADMIN_PASSWORD is shorter than 8 characters. Use a stronger password.');
 }
 
+const imagekitPrivateKey = process.env.IMAGEKIT_PRIVATE_KEY || '';
+if (!imagekitPrivateKey) {
+  console.warn('[config] IMAGEKIT_PRIVATE_KEY is not set: image uploads will fail. Add it to your .env file.');
+}
+
 export const config = {
   port: Number(process.env.PORT) || 5000,
   isProduction,
@@ -38,6 +43,7 @@ export const config = {
   mongoUri,
   adminPassword,
   jwtSecret,
+  imagekitPrivateKey,
   tokenTtl: '12h',
   seedDir: path.join(serverDir, 'seed'),
   distDir: path.join(rootDir, 'dist'),

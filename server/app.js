@@ -6,7 +6,6 @@ import helmet from 'helmet';
 import multer from 'multer';
 import { config } from './config.js';
 import { HttpError } from './lib/HttpError.js';
-import { serveIcon } from './lib/icons.js';
 import { adminRouter } from './routes/admin.js';
 import { publicRouter } from './routes/public.js';
 
@@ -42,8 +41,7 @@ export function createServer() {
   app.use('/api', publicRouter);
   app.use('/api', (_req, _res, next) => next(new HttpError(404, 'Not found.')));
 
-  app.get('/uploads/:file', serveIcon);
-  app.use('/uploads', (_req, _res, next) => next(new HttpError(404, 'Image not found.')));
+
 
   // In production the same server also serves the built React app.
   if (config.isProduction) {
