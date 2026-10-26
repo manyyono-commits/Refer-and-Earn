@@ -1,9 +1,23 @@
 import crypto from 'node:crypto';
+import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const serverDir = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(serverDir, '..');
+
+// Automatically load .env file if environment variables aren't already populated
+if (typeof process.loadEnvFile === 'function') {
+  for (const envPath of [path.join(rootDir, '.env'), path.join(serverDir, '.env'), path.resolve('.env')]) {
+    if (fs.existsSync(envPath)) {
+      try {
+        process.loadEnvFile(envPath);
+      } catch {
+        // Ignore parsing errors or already-loaded variables
+      }
+    }
+  }
+}
 
 const isProduction = process.env.NODE_ENV === 'production' || process.argv.includes('--prod');
 

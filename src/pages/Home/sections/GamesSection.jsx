@@ -27,7 +27,8 @@ export default function GamesSection({ title }) {
   return (
     <section id="games">
       <h2 className={styles.gamesTitle}>
-        <FaDownload aria-hidden="true" /> {title}
+        <FaDownload aria-hidden="true" />{' '}
+        {title || 'Download NEW YONO Games'}
       </h2>
 
       <Tabs tabs={TAB_ITEMS} activeId={activeTab} onChange={handleTabChange} idPrefix="games" />

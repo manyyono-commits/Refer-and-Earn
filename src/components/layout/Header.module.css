@@ -1,14 +1,18 @@
-.header {
+/* Sticky wrapper keeps both rows pinned to the top */
+.headerWrap {
   position: sticky;
   top: 0;
   z-index: 50;
+  box-shadow: var(--shadow-md);
+}
+
+/* Top row: brand / logo — keeps the gradient */
+.header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 16px 20px;
+  padding: 14px 20px;
   background: var(--header-gradient);
   color: #fff;
-  box-shadow: var(--shadow-md);
 }
 
 .brand {
@@ -30,79 +34,79 @@
   letter-spacing: -0.01em;
 }
 
-.menuToggle {
-  display: none;
-  background: rgba(255, 255, 255, 0.2);
-  border: none;
-  color: #fff;
-  width: 40px;
-  height: 40px;
-  border-radius: var(--radius-sm);
-  font-size: 1.1rem;
-  align-items: center;
-  justify-content: center;
+/* Second row: nav links — white background + thin bottom line */
+.nav {
+  background: #fff;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-around;
 }
 
 .navMenu {
   display: flex;
-  gap: 6px;
+  gap: 4px;
+  flex-wrap: wrap;
 }
 
 .navItem {
-  display: inline-flex;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 6px;
-  padding: 8px 14px;
-  border-radius: var(--radius-sm);
+  gap: 1px;
+  padding: 10px 14px;
   font-weight: 500;
-  font-size: 0.95rem;
-  transition: background var(--transition);
+  font-size: 0.9rem;
+  color: #4b5563;
+  white-space: nowrap;
+  transition: color var(--transition), background var(--transition);
+  border-bottom: 2px solid transparent;
 }
 
-.navItem:hover,
+.navItem:hover {
+  color: #111827;
+  background: #f3f4f6;
+}
+
 .active {
-  background: rgba(255, 255, 255, 0.2);
+  color: #4f46e5;
+  border-bottom-color: #4f46e5;
+  font-weight: 600;
 }
 
 .telegram {
-  background: rgba(255, 255, 255, 0.3);
+  color: #0088cc;
+  font-weight: 600;
+}
+
+.telegram:hover {
+  background: #e0f2fe;
 }
 
 @media (max-width: 768px) {
   .header {
-    padding: 14px 16px;
+    padding: 10px 12px;
   }
 
   .logo {
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
   }
 
-  .menuToggle {
-    display: inline-flex;
+  .siteTitle {
+    font-size: 1rem;
   }
 
   .nav {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background: var(--header-gradient);
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
-  }
-
-  .nav.open {
-    max-height: 400px;
+    padding: 0 0px;
   }
 
   .navMenu {
-    flex-direction: column;
-    padding: 8px 16px 16px;
+    gap: 0;
   }
 
   .navItem {
-    width: 100%;
+    padding: 8px 8px;
+    font-size: .80rem;
   }
 }

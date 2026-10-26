@@ -5,12 +5,15 @@ import { useGetSiteContentQuery } from '../../services/api';
 import Hero from './sections/Hero';
 import GamesSection from './sections/GamesSection';
 import FeaturedApps from './sections/FeaturedApps';
-import Tips from './sections/Tips';
-import Community from './sections/Community';
+import ExploreInfo from './sections/ExploreInfo';
+import VerifyApp from './sections/VerifyApp';
+import AppFeatures from './sections/AppFeatures';
+import ApkSafety from './sections/ApkSafety';
+import PrivacySecurity from './sections/PrivacySecurity';
+import Faq from './sections/Faq';
+import AboutBlock from './sections/AboutBlock';
 import DisclaimerNotice from './sections/DisclaimerNotice';
 import StateAlert from './sections/StateAlert';
-import PromoBanner from './sections/PromoBanner';
-import AboutBlock from './sections/AboutBlock';
 
 export default function Home() {
   const { data: site, isLoading, isError, refetch } = useGetSiteContentQuery();
@@ -30,15 +33,39 @@ export default function Home() {
     <>
       <Seo />
       <div className="container">
-        <Hero title={home.heroTitle} text={home.heroText} />
+        {/* H1: Yono Games: App Information, Features and User Guide */}
+        <Hero title={home.heroTitle} />
+
+        {/* H2: Explore Yono Games and App Information (+ App Cards) */}
         <GamesSection title={home.gamesTitle} />
+
+        {/* H2: Featured Apps (kept from existing design) */}
         <FeaturedApps content={home.featured} />
-        <Tips content={home.tips} />
-        <Community content={home.community} telegramUrl={site.telegramUrl} />
+
+        {/* H2: Explore Yono Games and App Information */}
+        <ExploreInfo />
+
+        {/* H2: How to Verify a Gaming App Before Installing */}
+        <VerifyApp />
+
+        {/* H2: App Features and Device Compatibility */}
+        <AppFeatures />
+
+        {/* H2: Understanding APK Files and Installation Safety */}
+        <ApkSafety />
+
+        {/* H2: Privacy and Security Considerations */}
+        <PrivacySecurity />
+
+        {/* Disclaimer & State Alert (kept from existing design) */}
         <DisclaimerNotice text={home.disclaimer} />
         <StateAlert content={home.stateAlert} />
-        <PromoBanner text={home.promo} />
-        <AboutBlock content={home.about} />
+
+        {/* H2: Frequently Asked Questions About Yono Games */}
+        <Faq />
+
+        {/* H2: About ManyYonoGames.com */}
+        <AboutBlock />
       </div>
     </>
   );

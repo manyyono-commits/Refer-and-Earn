@@ -7,7 +7,7 @@ mongoose.set('strictQuery', true);
 // Indexes are created explicitly in ensureIndexes(), after checking the
 // database really belongs to this app, so a wrong MONGODB_URI can't modify
 // another project's collections.
-mongoose.set('autoIndex', false);
+mongoose.set('autoIndex', false); 
 mongoose.set('autoCreate', false);
 
 /** Throws if the database already holds an unrelated "apps" collection. */
