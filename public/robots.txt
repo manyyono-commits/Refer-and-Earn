@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: 
+Disallow: /cgi-bin/
+Disallow: /admin
+Sitemap: https://manyyonogames.com/sitemap.xml
