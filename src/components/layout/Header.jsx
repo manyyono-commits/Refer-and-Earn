@@ -1,10 +1,11 @@
 import { Link, NavLink } from 'react-router-dom';
-import { FaHome, FaInfoCircle, FaEnvelope, FaExclamationTriangle, FaTelegramPlane } from 'react-icons/fa';
+import { FaHome, FaInfoCircle, FaEnvelope, FaExclamationTriangle, FaNewspaper, FaTelegramPlane } from 'react-icons/fa';
 import { useGetSiteContentQuery } from '../../services/api';
 import styles from './Header.module.css';
 
 const NAV_LINKS = [
   { to: '/', label: 'Home', end: true, icon: FaHome },
+  { to: '/blog/', label: 'Blog', icon: FaNewspaper },
   { to: '/about', label: 'About', icon: FaInfoCircle },
   { to: '/contact', label: 'Contact', icon: FaEnvelope },
   { to: '/disclaimer', label: 'Disclaimer', icon: FaExclamationTriangle },

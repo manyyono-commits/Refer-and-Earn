@@ -13,6 +13,7 @@ export default function ExploreInfo() {
         Information should be verified against reliable publisher documentation before being
         presented as fact.
       </p>
+      <p>Use the sections below to explore verified information about individual applications.</p>
     </Section>
   );
 }

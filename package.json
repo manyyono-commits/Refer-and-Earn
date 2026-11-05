@@ -11,6 +11,7 @@
     "start": "node --env-file-if-exists=.env server/index.js --prod",
     "seed": "node --env-file-if-exists=.env server/scripts/seed.js",
     "seed:site": "node --env-file-if-exists=.env server/scripts/seed.js --site",
+    "seed:articles": "node --env-file-if-exists=.env server/scripts/importArticles.js",
     "seed:reset": "node --env-file-if-exists=.env server/scripts/seed.js --reset",
     "lint": "eslint src server --ext .js,.jsx"
   },

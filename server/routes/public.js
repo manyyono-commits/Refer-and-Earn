@@ -3,6 +3,10 @@ import { isDbConnected } from '../db.js';
 import { HttpError } from '../lib/HttpError.js';
 import { App, serializeApp } from '../models/App.js';
 import { SiteContent } from '../models/SiteContent.js';
+import { Post, serializePost, serializePostSummary } from '../models/Post.js';
+
+/** Published posts whose publish date has arrived. */
+export const LIVE_POSTS = () => ({ status: 'published', publishedAt: { $lte: new Date() } });
 
 export const publicRouter = Router();
 
@@ -28,4 +32,15 @@ publicRouter.get('/site', async (_req, res) => {
   const site = await SiteContent.findOne({ key: 'main' }).lean();
   if (!site) throw new HttpError(404, 'Site content has not been seeded. Run "npm run seed".');
   res.json(site.content);
+});
+
+publicRouter.get('/posts', async (_req, res) => {
+  const posts = await Post.find(LIVE_POSTS()).sort({ publishedAt: -1 }).limit(500).lean();
+  res.json({ posts: posts.map(serializePostSummary) });
+});
+
+publicRouter.get('/posts/:slug', async (req, res) => {
+  const post = await Post.findOne({ ...LIVE_POSTS(), slug: String(req.params.slug).toLowerCase() }).lean();
+  if (!post) throw new HttpError(404, 'Post not found.');
+  res.json(serializePost(post));
 });

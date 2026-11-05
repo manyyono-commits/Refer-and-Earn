@@ -13,6 +13,7 @@ ENV NODE_ENV=production
 COPY package.json package-lock.json ./
 RUN npm ci --omit=dev && npm cache clean --force
 COPY server ./server
+COPY shared ./shared
 COPY --from=build /app/dist ./dist
 USER node
 EXPOSE 5000

@@ -1,0 +1,401 @@
+.page {
+  padding-top: 20px;
+  padding-bottom: 8px;
+}
+
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.breadcrumb a {
+  color: var(--primary-color);
+  font-weight: 500;
+}
+
+.card {
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+  margin-bottom: 20px;
+  color: var(--text-body);
+}
+
+.card p {
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.card p + p {
+  margin-top: 12px;
+}
+
+.title {
+  font-size: 26px;
+  line-height: 1.3;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 16px;
+}
+
+.card h2 {
+  font-size: 20px;
+  line-height: 1.35;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--primary-color);
+}
+
+.card h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 6px;
+}
+
+.cta {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 12px 22px;
+  border-radius: var(--radius-sm);
+  background: var(--header-gradient);
+  color: #fff;
+  font-weight: 600;
+  font-size: 15px;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.cta:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.steps {
+  list-style: none;
+  margin: 18px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.step {
+  padding: 14px 16px;
+  border-left: 4px solid var(--primary-color);
+  border-radius: var(--radius-sm);
+  background: var(--bg-muted);
+}
+
+.list,
+.checkList {
+  margin: 12px 0;
+  padding-left: 22px;
+  display: grid;
+  gap: 6px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.list {
+  list-style: disc;
+}
+
+.checkList {
+  list-style: none;
+  padding-left: 0;
+  gap: 10px;
+}
+
+.checkList li {
+  position: relative;
+  padding-left: 26px;
+}
+
+.checkList li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--success-color);
+  font-weight: 700;
+}
+
+.note,
+.warning {
+  margin-top: 16px !important;
+  padding: 14px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 14px !important;
+}
+
+.note {
+  background: #f0f9ff;
+  border-left: 4px solid #0ea5e9;
+}
+
+.warning {
+  background: #fef3c7;
+  border-left: 4px solid var(--warning-color);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.gridItem {
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.card .gridItem p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.sub {
+  margin-top: 18px;
+}
+
+.tableWrap {
+  overflow-x: auto;
+  margin: 16px 0;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.table th {
+  padding: 12px;
+  background: var(--primary-color);
+  color: #fff;
+  text-align: left;
+  font-weight: 600;
+}
+
+.table td {
+  padding: 12px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+
+.table tbody tr:nth-child(even) {
+  background: var(--bg-muted);
+}
+
+.faqList {
+  display: grid;
+  gap: 10px;
+}
+
+.faqItem {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.card .faqHeading {
+  margin: 0;
+}
+
+.faqQuestion {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  background: var(--bg-muted);
+  border: 0;
+  text-align: left;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-main);
+  cursor: pointer;
+}
+
+.faqChevron {
+  flex-shrink: 0;
+  transition: transform var(--transition);
+}
+
+.faqOpen .faqChevron {
+  transform: rotate(180deg);
+}
+
+.card .faqAnswer {
+  padding: 12px 16px 16px;
+  font-size: 14px;
+}
+
+/* ---------- Blog / Markdown ---------- */
+.card h2:not(:first-child) {
+  margin-top: 28px;
+}
+
+.card h4 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-main);
+  margin: 16px 0 6px;
+}
+
+.card code {
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: var(--bg-muted);
+  border: 1px solid var(--border);
+  font-size: 0.9em;
+}
+
+.card a:not(.cta):not(.postCard) {
+  color: var(--brand-indigo);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.hr {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin: 24px 0;
+}
+
+.figure {
+  margin: 18px 0;
+}
+
+.figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-sm);
+}
+
+.figure figcaption {
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin-bottom: 14px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.cover {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1200 / 630;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  margin-bottom: 16px;
+  background: var(--bg-muted);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.tag {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--bg-muted);
+  border: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.postGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.postCard {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--bg-card);
+  color: var(--text-body);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.postCard:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.postCard img {
+  width: 100%;
+  aspect-ratio: 1200 / 630;
+  object-fit: cover;
+  background: var(--bg-muted);
+}
+
+.postCardBody {
+  padding: 14px 16px 16px;
+}
+
+.card .postCardBody h2 {
+  font-size: 16px;
+  margin: 0 0 6px;
+  padding: 0;
+  border: 0;
+}
+
+.card .postCardBody p {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+
+.postCardDate {
+  display: block;
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--text-soft);
+}
+
+@media (max-width: 768px) {
+  .card {
+    padding: 18px;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+
+  .card h2 {
+    font-size: 18px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

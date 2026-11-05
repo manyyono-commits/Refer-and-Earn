@@ -10,16 +10,16 @@ export default function FeaturedApps({ content }) {
   const allApps = useSelector(selectAllApps);
 
   return (
-    <Section title="Featured Apps" icon={FaFire}>
+    <Section title="Featured Apps" icon={FaFire} level={3}>
       <span className={styles.score}>{content.score}</span>
       <p>{content.intro}</p>
 
       <div className={styles.featuredList}>
         {featured.map((app) => (
           <div key={app.id} className={styles.featuredItem}>
-            <h3>
+            <h4>
               <Link to={`/${app.slug}`}>{app.name}</Link>
-            </h3>
+            </h4>
             <p>{app.description}</p>
           </div>
         ))}
@@ -33,7 +33,7 @@ export default function FeaturedApps({ content }) {
 
       {allApps.length > 0 && (
         <>
-          <h3 className={styles.subTitle}>Featured Apps Include</h3>
+          <h4 className={styles.subTitle}>Featured Apps Include</h4>
           <p>
             {allApps.slice(0, 12).map((app, i) => (
               <span key={app.id}>
