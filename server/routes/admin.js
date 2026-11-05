@@ -6,6 +6,8 @@ import { HttpError } from '../lib/HttpError.js';
 import { iconUpload, removeUnusedIcon, saveIcon } from '../lib/icons.js';
 import { validateApp } from '../lib/validateApp.js';
 import { App, serializeApp } from '../models/App.js';
+import { validatePost } from '../lib/validatePost.js';
+import { Post, serializePost, serializePostSummary } from '../models/Post.js';
 
 export const adminRouter = Router();
 
@@ -96,5 +98,71 @@ adminRouter.delete('/apps/:id', async (req, res) => {
 
 adminRouter.post('/upload', iconUpload, async (req, res) => {
   if (!req.file) throw new HttpError(400, 'No image was uploaded.');
-  res.status(201).json({ url: await saveIcon(req.file) });
+  const folder = req.query.folder === 'blog' ? '/blog' : '/app-icons';
+  res.status(201).json({ url: await saveIcon(req.file, folder) });
+});
+
+// ---------- Blog posts ----------
+
+const POST_SLUG_TAKEN = new HttpError(400, 'Please fix the highlighted fields.', {
+  slug: 'Another post already uses this slug.',
+});
+
+const assertPostSlugFree = async (slug, selfId) => {
+  if (await Post.exists({ slug, ...(selfId && { _id: { $ne: selfId } }) })) throw POST_SLUG_TAKEN;
+};
+
+const rethrowPostDuplicate = (err) => {
+  if (err?.code === 11000) throw POST_SLUG_TAKEN;
+  throw err;
+};
+
+const findPost = async (id) => {
+  const post = mongoose.isValidObjectId(id) ? await Post.findById(id).lean() : null;
+  if (!post) throw new HttpError(404, 'Post not found.');
+  return post;
+};
+
+// Images a post points at, so replaced ones can be cleaned up.
+const postImages = (p) => [p.coverImage, p.seo?.ogImage].filter(Boolean);
+
+adminRouter.get('/posts', async (_req, res) => {
+  const posts = await Post.find().sort({ updatedAt: -1 }).lean();
+  res.json({ posts: posts.map(serializePostSummary) });
+});
+
+adminRouter.get('/posts/:id', async (req, res) => {
+  res.json(serializePost(await findPost(req.params.id)));
+});
+
+adminRouter.post('/posts', async (req, res) => {
+  const clean = validatePost(req.body ?? {});
+  await assertPostSlugFree(clean.slug);
+  const created = await Post.create(clean).catch(rethrowPostDuplicate);
+  res.status(201).json(serializePost(created.toObject()));
+});
+
+adminRouter.patch('/posts/:id', async (req, res) => {
+  const existing = await findPost(req.params.id);
+  const { id: _id, createdAt: _c, updatedAt: _u, ...changes } = req.body ?? {};
+  const merged = { ...serializePost(existing), ...changes };
+  // Keep the original publish date when a published post is edited.
+  if (!changes.publishedAt && existing.publishedAt) merged.publishedAt = existing.publishedAt;
+  const clean = validatePost(merged);
+  await assertPostSlugFree(clean.slug, existing._id);
+
+  const updated = await Post.findByIdAndUpdate(existing._id, clean, { new: true, runValidators: true })
+    .lean()
+    .catch(rethrowPostDuplicate);
+
+  const kept = new Set(postImages(updated));
+  for (const img of postImages(existing)) if (!kept.has(img)) await removeUnusedIcon(img);
+  res.json(serializePost(updated));
+});
+
+adminRouter.delete('/posts/:id', async (req, res) => {
+  const existing = await findPost(req.params.id);
+  await Post.deleteOne({ _id: existing._id });
+  for (const img of postImages(existing)) await removeUnusedIcon(img);
+  res.json({ ok: true, id: String(existing._id) });
 });

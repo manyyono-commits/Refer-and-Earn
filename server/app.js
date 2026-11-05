@@ -1,4 +1,4 @@
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import compression from 'compression';
 import express from 'express';
@@ -8,6 +8,9 @@ import { config } from './config.js';
 import { HttpError } from './lib/HttpError.js';
 import { adminRouter } from './routes/admin.js';
 import { publicRouter } from './routes/public.js';
+import { LEGACY_REDIRECTS, SEO_PAGES, SITE_URL, applyPageHead, postSeo } from '../shared/seo/pages.js';
+import { Post } from './models/Post.js';
+import { LIVE_POSTS } from './routes/public.js';
 
 export function createServer() {
   const app = express();
@@ -35,7 +38,8 @@ export function createServer() {
     }),
   );
   app.use(compression());
-  app.use(express.json({ limit: '100kb' }));
+  // Blog posts can be long; everything else is small.
+  app.use(express.json({ limit: '1mb' }));
 
   app.use('/api/admin', adminRouter);
   app.use('/api', publicRouter);
@@ -51,7 +55,56 @@ export function createServer() {
     }
     // Vite fingerprints asset file names, so they can be cached forever.
     app.use('/assets', express.static(path.join(config.distDir, 'assets'), { maxAge: '365d', immutable: true }));
+    // Sitemap = the static file plus every published blog post. Registered before
+    // express.static so it overrides dist/sitemap.xml.
+    app.get('/sitemap.xml', async (_req, res, next) => {
+      try {
+        const base = readFileSync(path.join(config.distDir, 'sitemap.xml'), 'utf8');
+        const posts = await Post.find(LIVE_POSTS()).select('slug updatedAt seo.noindex').lean();
+        const urls = posts
+          .filter((p) => !p.seo?.noindex)
+          .map(
+            (p) =>
+              `  <url>\n       <loc>${SITE_URL}/blog/${p.slug}/</loc>\n       <lastmod>${new Date(p.updatedAt).toISOString()}</lastmod>\n       <priority>0.7000</priority>\n  </url>\n`,
+          )
+          .join('');
+        res.set('Cache-Control', 'no-cache');
+        res.type('application/xml').send(base.replace('</urlset>', `${urls}</urlset>`));
+      } catch (err) {
+        next(err);
+      }
+    });
     app.use(express.static(config.distDir, { index: false, maxAge: '1h' }));
+    // Serve the article pages with their own <title>, meta and JSON-LD already in the HTML,
+    // so crawlers and link previews get them without running JavaScript.
+    // Old article URLs moved into the blog: permanent redirects keep links and rankings.
+    for (const [from, to] of Object.entries(LEGACY_REDIRECTS)) {
+      app.get(from.replace(/\/$/, ''), (_req, res) => res.redirect(301, to));
+    }
+    const pageHtml = new Map();
+    for (const seo of SEO_PAGES) {
+      app.get(seo.path.replace(/\/$/, ''), (req, res) => {
+        if (req.path !== seo.path) return res.redirect(301, seo.path);
+        if (!pageHtml.has(seo.path)) pageHtml.set(seo.path, applyPageHead(readFileSync(indexHtml, 'utf8'), seo));
+        res.set('Cache-Control', 'no-cache');
+        return res.type('html').send(pageHtml.get(seo.path));
+      });
+    }
+    // Blog posts: SEO tags come from the database. Unknown or draft slugs get a 404 status
+    // (the React app still renders its "not found" view).
+    app.get('/blog/:slug', async (req, res, next) => {
+      try {
+        const slug = String(req.params.slug).toLowerCase();
+        const post = await Post.findOne({ ...LIVE_POSTS(), slug }).lean();
+        if (!post) return res.status(404).set('Cache-Control', 'no-cache').sendFile(indexHtml);
+        const canonicalPath = `/blog/${post.slug}/`;
+        if (req.path !== canonicalPath) return res.redirect(301, canonicalPath);
+        res.set('Cache-Control', 'no-cache');
+        return res.type('html').send(applyPageHead(readFileSync(indexHtml, 'utf8'), postSeo(post)));
+      } catch (err) {
+        return next(err);
+      }
+    });
     app.get('/{*splat}', (_req, res) => {
       res.set('Cache-Control', 'no-cache');
       res.sendFile(indexHtml);

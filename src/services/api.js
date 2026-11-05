@@ -27,7 +27,7 @@ export const api = createApi({
   keepUnusedDataFor: MEMORY_CACHE_SECONDS,
   // Revalidation is cheap (304 when unchanged), so pick up new listings when the tab regains focus.
   refetchOnFocus: true,
-  tagTypes: ['Apps', 'Site'],
+  tagTypes: ['Apps', 'Site', 'Posts'],
   endpoints: (builder) => ({
     getApps: builder.query({
       query: () => 'apps',
@@ -38,10 +38,19 @@ export const api = createApi({
       query: () => 'site',
       providesTags: ['Site'],
     }),
+    getPosts: builder.query({
+      query: () => 'posts',
+      transformResponse: (response) => response.posts ?? [],
+      providesTags: ['Posts'],
+    }),
+    getPost: builder.query({
+      query: (slug) => `posts/${encodeURIComponent(slug)}`,
+      providesTags: (_r, _e, slug) => [{ type: 'Posts', id: slug }],
+    }),
   }),
 });
 
-export const { useGetAppsQuery, useGetSiteContentQuery, usePrefetch } = api;
+export const { useGetAppsQuery, useGetSiteContentQuery, useGetPostsQuery, useGetPostQuery, usePrefetch } = api;
 
 /**
  * Reads a single app from the cached apps list, so detail pages

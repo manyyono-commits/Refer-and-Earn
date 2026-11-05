@@ -15,7 +15,7 @@ function AppCard({ app, index }) {
       {index != null && <div className={styles.number}>{index}</div>}
       <AppIcon src={app.icon} name={app.name} badge={app.badge} color={app.color} />
       <div className={styles.info}>
-        <h4 className={styles.name}>{app.name}</h4>
+        <h3 className={styles.name}>{app.name}</h3>
         <div className={styles.details}>
           <span className={styles.bonus}>
             <FaGift aria-hidden="true" /> Sign Up Bonus {formatCurrency(app.bonus)}

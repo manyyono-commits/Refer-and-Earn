@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
-import { FaExternalLinkAlt, FaList, FaPlus, FaSignOutAlt } from 'react-icons/fa';
+import { FaExternalLinkAlt, FaList, FaNewspaper, FaPlus, FaSignOutAlt } from 'react-icons/fa';
 import Seo from '../../components/common/Seo';
 import Loader from '../../components/common/Loader';
 import ScrollToTop from '../../components/layout/ScrollToTop';
@@ -25,7 +25,7 @@ export default function AdminLayout() {
       <ScrollToTop />
       <header className={styles.topBar}>
         <Link to="/admin" className={styles.brand}>
-          <img src="/images/logo.svg" alt="" width="32" height="32" />
+          <img src="/images/logo.jpeg" alt="" width="32" height="32" />
           <span>Admin Panel</span>
         </Link>
         <nav className={styles.topNav}>
@@ -34,6 +34,9 @@ export default function AdminLayout() {
           </NavLink>
           <NavLink to="/admin/apps/new" className={navClass}>
             <FaPlus aria-hidden="true" /> <span>Add App</span>
+          </NavLink>
+          <NavLink to="/admin/posts" className={navClass}>
+            <FaNewspaper aria-hidden="true" /> <span>Blog Posts</span>
           </NavLink>
           <a href="/" target="_blank" rel="noopener noreferrer" className={styles.topNavItem}>
             <FaExternalLinkAlt aria-hidden="true" /> <span>View Site</span>

@@ -2,6 +2,7 @@ import ImageKit from '@imagekit/nodejs';
 import multer from 'multer';
 import { config } from '../config.js';
 import { App } from '../models/App.js';
+import { Post } from '../models/Post.js';
 import { HttpError } from './HttpError.js';
 
 // SVG is deliberately excluded: it can carry scripts.
@@ -32,7 +33,7 @@ export const iconUpload = multer({
 }).single('icon');
 
 /** Uploads an image to ImageKit and returns its public URL. */
-export async function saveIcon({ buffer, mimetype, originalname }) {
+export async function saveIcon({ buffer, mimetype, originalname }, folder = '/app-icons') {
   // eslint-disable-next-line no-unused-vars
   const ext = EXTENSIONS[mimetype] || '';
   const fileName = `${Date.now()}-${(originalname || 'icon').replace(/[^a-zA-Z0-9._-]/g, '_')}`;
@@ -40,8 +41,8 @@ export async function saveIcon({ buffer, mimetype, originalname }) {
   const result = await getImageKit().files.upload({
     file: buffer.toString('base64'),  // SDK expects base64 string, not raw Buffer
     fileName,
-    folder: '/app-icons',  // Keep icons organised in a folder on ImageKit
-    tags: ['app-icon'],
+    folder,
+    tags: [folder === '/blog' ? 'blog' : 'app-icon'],
   });
 
   // result.url is the full public CDN URL from ImageKit
@@ -78,8 +79,13 @@ async function deleteFromImageKit(iconUrl) {
   }
 }
 
-/** Deletes an uploaded icon from ImageKit unless some app still uses it. */
+/** Deletes an uploaded image from ImageKit unless an app or blog post still uses it. */
 export async function removeUnusedIcon(iconUrl) {
-  if (!iconUrl || (await App.exists({ icon: iconUrl }))) return;
+  if (!iconUrl) return;
+  const inUse = await Promise.all([
+    App.exists({ icon: iconUrl }),
+    Post.exists({ $or: [{ coverImage: iconUrl }, { 'seo.ogImage': iconUrl }, { content: { $regex: iconUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') } }] }),
+  ]);
+  if (inUse.some(Boolean)) return;
   await deleteFromImageKit(iconUrl);
 }

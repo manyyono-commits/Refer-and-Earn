@@ -87,16 +87,16 @@
   border: 1px solid var(--border);
 }
 
-.featuredItem h3 {
+.featuredItem h4 {
   font-size: 1.05rem;
   margin-bottom: 4px;
 }
 
-.featuredItem h3 a {
+.featuredItem h4 a {
   color: var(--brand-indigo);
 }
 
-.featuredItem h3 a:hover {
+.featuredItem h4 a:hover {
   text-decoration: underline;
 }
 

@@ -3,7 +3,7 @@ import { FaQuestionCircle, FaChevronDown } from 'react-icons/fa';
 import Section from '../../../components/common/Section';
 import styles from '../Home.module.css';
 
-const FAQS = [
+export const FAQS = [
   {
     q: 'What is Yono Games?',
     a: 'Yono Games is a search term associated with gaming applications. The exact application, publisher and features should be verified before making claims about a particular product.',
@@ -44,6 +44,7 @@ function FaqItem({ q, a }) {
   return (
     <div className={`${styles.faqItem} ${open ? styles.faqOpen : ''}`}>
       <button
+        type="button"
         className={styles.faqQuestion}
         onClick={() => setOpen((prev) => !prev)}
         aria-expanded={open}
@@ -51,7 +52,10 @@ function FaqItem({ q, a }) {
         <span>{q}</span>
         <FaChevronDown className={styles.faqChevron} aria-hidden="true" />
       </button>
-      {open && <p className={styles.faqAnswer}>{a}</p>}
+      {/* Answer stays in the DOM (hidden) so crawlers can read it. */}
+      <p className={styles.faqAnswer} hidden={!open}>
+        {a}
+      </p>
     </div>
   );
 }

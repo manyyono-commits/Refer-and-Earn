@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import { config } from './config.js';
 import { App } from './models/App.js';
 import { SiteContent } from './models/SiteContent.js';
+import { Post } from './models/Post.js';
 
 mongoose.set('strictQuery', true);
 // Indexes are created explicitly in ensureIndexes(), after checking the
@@ -23,7 +24,7 @@ async function assertOwnDatabase() {
 
 async function ensureIndexes() {
   await assertOwnDatabase();
-  await Promise.all([App.createIndexes(), SiteContent.createIndexes()]);
+  await Promise.all([App.createIndexes(), SiteContent.createIndexes(), Post.createIndexes()]);
 }
 
 export async function connectDb() {

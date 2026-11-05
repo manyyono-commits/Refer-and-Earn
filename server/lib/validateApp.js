@@ -1,7 +1,10 @@
 import { HttpError } from './HttpError.js';
 
 // Slugs that would clash with site routes.
-const RESERVED_SLUGS = new Set(['about', 'contact', 'disclaimer', 'admin', 'api', 'uploads', 'images', 'assets']);
+const RESERVED_SLUGS = new Set([
+  'about', 'contact', 'disclaimer', 'admin', 'api', 'uploads', 'images', 'assets', 'blog',
+  'yono-games-apk-download', 'all-yono-games', 'yono-vip-games-for-android-download', 'sitemap.xml',
+]);
 const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const COLOR_RE = /^#[0-9a-f]{6}$/i;
 const HTTP_RE = /^https?:\/\/\S+$/i;

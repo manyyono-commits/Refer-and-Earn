@@ -64,6 +64,36 @@ export const adminApi = api.injectEndpoints({
         return { url: 'admin/upload', method: 'POST', body };
       },
     }),
+    uploadBlogImage: builder.mutation({
+      query: (file) => {
+        const body = new FormData();
+        body.append('icon', file);
+        return { url: 'admin/upload?folder=blog', method: 'POST', body };
+      },
+    }),
+
+    // ---------- Blog posts ----------
+    getAdminPosts: builder.query({
+      query: () => 'admin/posts',
+      transformResponse: (response) => response.posts ?? [],
+      providesTags: ['Posts'],
+    }),
+    getAdminPost: builder.query({
+      query: (id) => `admin/posts/${id}`,
+      providesTags: (_r, _e, id) => [{ type: 'Posts', id }],
+    }),
+    createPost: builder.mutation({
+      query: (post) => ({ url: 'admin/posts', method: 'POST', body: post }),
+      invalidatesTags: ['Posts'],
+    }),
+    updatePost: builder.mutation({
+      query: ({ id, ...changes }) => ({ url: `admin/posts/${id}`, method: 'PATCH', body: changes }),
+      invalidatesTags: ['Posts'],
+    }),
+    deletePost: builder.mutation({
+      query: (id) => ({ url: `admin/posts/${id}`, method: 'DELETE' }),
+      invalidatesTags: ['Posts'],
+    }),
   }),
 });
 
@@ -74,6 +104,12 @@ export const {
   useDeleteAppMutation,
   useReorderAppsMutation,
   useUploadIconMutation,
+  useUploadBlogImageMutation,
+  useGetAdminPostsQuery,
+  useGetAdminPostQuery,
+  useCreatePostMutation,
+  useUpdatePostMutation,
+  useDeletePostMutation,
 } = adminApi;
 
 /** Pulls a readable message out of an RTK Query error. */
