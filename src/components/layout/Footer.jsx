@@ -23,13 +23,9 @@ export default function Footer() {
         )}
         <hr className={styles.rule} />
         <nav className={styles.links} aria-label="Footer">
-          <Link to="/blog/">Blog</Link>
           <Link to="/about">About</Link>
           <Link to="/contact">Contact</Link>
           <Link to="/disclaimer">Disclaimer</Link>
-          <Link to="/blog/all-yono-games/">All Yono Games</Link>
-          <Link to="/blog/yono-games-apk-download/">Yono Games APK Download</Link>
-          <Link to="/blog/yono-vip-games-for-android-download/">Yono VIP Games</Link>
         </nav>
         <p className={styles.copy}>
           © {year} {site?.siteName ?? 'All New Apps'}. For users aged 18+ only.
